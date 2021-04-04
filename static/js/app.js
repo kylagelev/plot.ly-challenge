@@ -107,7 +107,10 @@ console.log(text)
     text: text,
     name: "OTUs",
     type: "bar",
-    orientation: "h"
+    orientation: "h",
+    marker:{
+      color: "brown"
+    }
   };
 
   // data

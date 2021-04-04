@@ -50,8 +50,6 @@ output.innerHTML = `<center>ID: ${demo_data.id}
                     <br>
                     Wfreq: ${demo_data.wfreq}</center>`
 
- 
-
 //output of graph
     if (samples.id == 940){
         x_otu_id = samples.otu_ids
@@ -72,11 +70,7 @@ output.innerHTML = `<center>ID: ${demo_data.id}
       };
     }
     var data = [og_trace];
-
     Plotly.newPlot("plot", data);
-
-
-
 
 
 // Call updatePlotly() when a change takes place to the DOM
@@ -84,18 +78,16 @@ d3.selectAll("#selDataset").on("change", updatePlotly);
 
 
 function updatePlotly() {
-
     var dropdownMenu = d3.select("#selDataset");
     var value = dropdownMenu.node().value;
     console.log(value)
 
     //pulling out demographic data
     for (var i = 0; i < metadata.length; i++){
-        if (metadata[i].id === value){
+        if (metadata[i].id == value){
             demo_data = metadata[i]
             console.log(demo_data)
-        
-
+    
         var output = document.getElementById('sample-metadata')
         output.innerHTML = `<center>ID: ${demo_data.id} 
                             <br> 
@@ -111,40 +103,34 @@ function updatePlotly() {
                             <br>
                             Wfreq: ${demo_data.wfreq}</center>`
         }
+    };
+        
+    for (var i = 0; i < samples.length; i++){
+        if (samples[i].id == value){
 
-    // //Use otu_ids for the x values.
-    //     if (value === data.samples[0].id){
-    //         x_otu_id = data.samples[0].otu_ids
-    // // Use sample_values for the y values.
-    //         y_values = data.samples[0].sample_values
-    // // Use sample_values for the marker size.
-            
-    // // Use otu_ids for the marker colors.
-            
-    // // Use otu_labels for the text values.
-    
-     }  
+            x_otu_id = samples.otu_ids
+            y_values = samples.sample_values
 
-            // var trace2 = {
-            //     type: "scatter",
-            //     name: value,
-            //     x: x_otu_id,
-            //     y: y_values,
-            //     line: {
-            //       color: "#17BECF"
-            //     }
-            //   };
-          
-            //   var data = [trace2];
+            var tracechange = {
+                type: "scatter",
+                mode: 'markers',
+                name: samples[i].id,
+                x: x_otu_id,
+                y: y_values,
+                text: samples.otu_labels,
+                marker: {
+                        size: y_values,
+                        color: x_otu_id,
+                        colorscale:"turbid"
+                        }
+                    };
+            }
+        }
+                
+                var data = [tracechange]
 
-
-    }
-    }
-// Plotly.restyle("plot", "x", [x]);
-// Plotly.restyle("plot", "y", [y]);
-
+    Plotly.restyle("plot", "x", data);
+    Plotly.restyle("plot", "y", data);
+ 
+}}
 });
-
-init();
-
-
