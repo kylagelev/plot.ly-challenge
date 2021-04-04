@@ -50,12 +50,59 @@ output.innerHTML = `<center>ID: ${demo_data.id}
                     <br>
                     Wfreq: ${demo_data.wfreq}</center>`
 
-//output of graph
+//set gauge
+// var data = [
+// 	{
+// 		domain: { x: [0, 1], y: [0, 1] },
+// 		value: 270,
+// 		title: { text: "Speed" },
+// 		type: "indicator",
+// 		mode: "gauge+number"
+// 	}
+// ];
+
+// var layout = { width: 600, height: 500, margin: { t: 0, b: 0 } };
+// Plotly.newPlot('gauge', data, layout);
+
+//output of bar plot
+
+
+
+
+//output of scatter graph
 function init(){
     if (samples[0].id == 940){
-        x_otu_id = samples[0].otu_ids
-    // Use sample_values for the y values.
+// Use sample_values for the y values.
         y_values = samples[0].sample_values
+
+//Sort the data array 
+    sorted_y_values = y_values.sort(function(a, b) {
+   return parseFloat(b.y_values) - parseFloat(a.y_values);
+ });
+ //  Slice the first 10 objects for plotting
+    sliced_y_values = sorted_y_values.slice(0, 10)
+// have to reverse 
+    sliced_y_values = sliced_y_values.reverse();
+
+    console.log(sliced_y_values)
+
+    x_otu_id = samples[0].otu_ids
+
+    sliced_x_values = x_otu_id.slice(0, 10)
+    console.log(sliced_x_values)
+
+//converting the otu_ids to strings... otherwise the graph read the values as numbers on the y-axis
+    otus = []
+    for (var i = 0; i < sliced_x_values.length; i++){
+    var otu = sliced_x_values[i].toString()
+    otu_id = `OTU ${otu}`
+    otus.push(otu_id)
+    }
+
+//have to reverse otus values
+    otus = otus.reverse();
+
+
     var og_trace = {
         type: "scatter",
         mode: 'markers',
@@ -69,9 +116,22 @@ function init(){
                 colorscale:"turbid"
                 }
       };
+
+    var bar_og_trace = {
+        type: "bar",
+        x: sliced_y_values,
+        y: otus,
+        orientation: "h",
+        marker:{
+                color: "brown"
+                }
+
+    }
     }
     var data = [og_trace];
+    var bardata = [bar_og_trace]
     Plotly.newPlot("plot", data);
+    Plotly.newPlot("bar", bardata)
 
 }
 // Call updatePlotly() when a change takes place to the DOM
@@ -105,7 +165,7 @@ function updatePlotly() {
                             Wfreq: ${demo_data.wfreq}</center>`
         }
     };
-        
+//making x and y values for bubble
     for (var i = 0; i < samples.length; i++){
         if (samples[i].id == value){
 
