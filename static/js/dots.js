@@ -1,6 +1,6 @@
 d3.json("../samples.json").then(function(Data){
     var data = Data
-    
+
 //testing variables created
     var samples = data.samples[0]
     console.log(samples.otu_ids);
@@ -34,7 +34,6 @@ for (var i = 0; i < metadata.length; i++){
     console.log(demo_data)
 }
 
-
 //output onto html
 var output = document.getElementById('sample-metadata')
 output.innerHTML = `<center>ID: ${demo_data.id} 
@@ -54,25 +53,29 @@ output.innerHTML = `<center>ID: ${demo_data.id}
  
 
 //output of graph
-    //     if (data.samples[0].id == 940){
-    //         x_otu_id = data.samples[0].otu_ids
-    //         console.log(x_otu_id)
-    //     // Use sample_values for the y values.
-    //         y_values = data.samples[0].sample_values
-    // var og_trace = {
-    //     type: "scatter",
-    //     name: value,
-    //     x: x_otu_id,
-    //     y: y_values,
-    //   };
+    if (samples.id == 940){
+        x_otu_id = samples.otu_ids
+    // Use sample_values for the y values.
+        y_values = samples.sample_values
+    var og_trace = {
+        type: "scatter",
+        mode: 'markers',
+        name: 940,
+        x: x_otu_id,
+        y: y_values,
+        text: samples.otu_labels,
+        marker: {
+                size: y_values,
+                color: x_otu_id,
+                colorscale:"turbid"
+                }
+      };
+    }
+    var data = [og_trace];
 
-    //   var data = [og_trace];
+    Plotly.newPlot("plot", data);
 
-    
-    
 
-  
-Plotly.newPlot("plot", data);
 
 
 
