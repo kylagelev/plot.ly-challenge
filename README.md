@@ -11,6 +11,6 @@ Looking at all these visualizations can provide researchers and people intereste
 
 Take a quick peak at the site, otherwise, deploy and interact!
 
-![Image of Belly Button Visualizations](https://github.com/kylagelev/plot.ly-challenge/image/plotly_image.png)
+![Image of Belly Button Visualizations](image/plotly_image.png)
 
 
