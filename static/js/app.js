@@ -52,17 +52,18 @@ console.log(information.values)
  });
 
 
-  // // // Slice the first 10 objects for plotting
-    slicedvalues = information.values.slice(0, 10);
-
-    console.log(slicedvalues[1])
+//  Slice the first 10 objects for plotting
+    slicedvalues = information.values.slice(0, 10)
     
 
-//   // Reverse the array due to Plotly's defaults
+// have to reverse 
     slicedvalues = slicedvalues.reverse();
 
     sliced_id = []
     sliced_hovertexts = []
+
+//checking, so here I have a total of 9 values...
+    console.log(slicedvalues)
 
     for (var i = 0; i < information.values.length; i++){
       for (var j = 0; j < slicedvalues.length; j++){
@@ -74,8 +75,6 @@ console.log(information.values)
         }
       }
     }
-console.log(sliced_id)
-console.log(sliced_hovertexts)
 
 otus = []
 
@@ -85,18 +84,24 @@ for (var i = 0; i < sliced_id.length; i++){
   otus.push(otu_id)
 }
 
-console.log(otus)
 
-otus_ids = otus.slice(0, 10);
-hover = sliced_hovertexts.slice(0,10);
-otu = otus_ids.reverse();
+
+otus_ids = otus.slice(0, 11);
+hover = sliced_hovertexts.slice(0, 10);
+otu_text = otus_ids.reverse();
 text = hover.reverse();
+
+var unique_otu = Array.from(new Set(otu_text));
+
+console.log(slicedvalues)
+console.log(unique_otu)
+console.log(text)
 
 
   var trace1 = {
     x: slicedvalues,
-    y: otus_ids,
-    text: hover,
+    y: unique_otu,
+    text: text,
     name: "OTUs",
     type: "bar",
     orientation: "h"
