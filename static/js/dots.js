@@ -72,6 +72,7 @@ output.innerHTML = `<center>ID: ${demo_data.id}
 //output of scatter graph
 function init(){
     if (samples[0].id == 940){
+
 // Use sample_values for the y values.
         y_values = samples[0].sample_values
 
@@ -86,6 +87,10 @@ function init(){
 
     console.log(sliced_y_values)
 
+//text labels
+    otu_labels = samples[0].otu_labels
+
+//x_values
     x_otu_id = samples[0].otu_ids
 
     sliced_x_values = x_otu_id.slice(0, 10)
@@ -103,13 +108,14 @@ function init(){
     otus = otus.reverse();
 
 
+//setting down plots
     var og_trace = {
         type: "scatter",
         mode: 'markers',
         name: 940,
         x: x_otu_id,
         y: y_values,
-        text: samples[0].otu_labels,
+        text: otu_labels,
         marker: {
                 size: y_values,
                 color: x_otu_id,
@@ -121,6 +127,7 @@ function init(){
         type: "bar",
         x: sliced_y_values,
         y: otus,
+        text: otu_labels,
         orientation: "h",
         marker:{
                 color: "brown"
@@ -173,13 +180,16 @@ function updatePlotly() {
             y_values = samples[i].sample_values
             console.log(y_values)
 
+            //text labels
+            otu_labels = samples[i].otu_labels
+
             var tracechange = {
                 type: "scatter",
                 mode: 'markers',
                 name: samples[i].id,
                 x: x_otu_id,
                 y: y_values,
-                text: samples.otu_labels,
+                text: otu_labels,
                 marker: {
                         size: y_values,
                         color: x_otu_id,
@@ -187,10 +197,47 @@ function updatePlotly() {
                         }
                     };
 
+//make changing bar plot 
+sorted_y_values = y_values.sort(function(a, b) {
+    return parseFloat(b.y_values) - parseFloat(a.y_values);
+  });
+  //  Slice the first 10 objects for plotting
+     sliced_y_values = sorted_y_values.slice(0, 10)
+ // have to reverse 
+     sliced_y_values = sliced_y_values.reverse();
+ 
+     console.log(sliced_y_values)
+ 
+     sliced_x_values = x_otu_id.slice(0, 10)
+     console.log(sliced_x_values)
+ 
+ //converting the otu_ids to strings... otherwise the graph read the values as numbers on the y-axis
+     otus = []
+     for (var i = 0; i < sliced_x_values.length; i++){
+     var otu = sliced_x_values[i].toString()
+     otu_id = `OTU ${otu}`
+     otus.push(otu_id)
+     }
+ 
+ //have to reverse otus values
+     otus = otus.reverse();
+
+     var bar_change = {
+        type: "bar",
+        x: sliced_y_values,
+        y: otus,
+        text: otu_labels,
+        orientation: "h",
+        marker:{
+                color: "brown"
+                }
+    }
         }}
                 
             var data = [tracechange]
+            var bardata = [bar_change]
     Plotly.newPlot("plot", data)
+    Plotly.newPlot("bar", bardata)
     // Plotly.restyle("plot", "x", [x_otu_id]) 
     // Plotly.restyle("plot", "y", [y_values]) 
 
