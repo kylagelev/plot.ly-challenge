@@ -2,8 +2,8 @@ d3.json("../samples.json").then(function(Data){
     var data = Data
 
 //testing variables created
-    var samples = data.samples[0]
-    console.log(samples.otu_ids);
+    var samples = data.samples
+    console.log(samples[0].id);
 
     var names = data.names
     console.log(names);
@@ -11,8 +11,8 @@ d3.json("../samples.json").then(function(Data){
     var metadata = data.metadata
     console.log(metadata[0].ethnicity);
 
-    if (samples.id == 940){
-        console.log(samples.otu_ids)
+    if (samples[0].id == 940){
+        console.log(samples[0].otu_ids)
     };
 
 //ok, so want to match id from metadata to get information to make bubble graph
@@ -51,17 +51,18 @@ output.innerHTML = `<center>ID: ${demo_data.id}
                     Wfreq: ${demo_data.wfreq}</center>`
 
 //output of graph
-    if (samples.id == 940){
-        x_otu_id = samples.otu_ids
+function init(){
+    if (samples[0].id == 940){
+        x_otu_id = samples[0].otu_ids
     // Use sample_values for the y values.
-        y_values = samples.sample_values
+        y_values = samples[0].sample_values
     var og_trace = {
         type: "scatter",
         mode: 'markers',
         name: 940,
         x: x_otu_id,
         y: y_values,
-        text: samples.otu_labels,
+        text: samples[0].otu_labels,
         marker: {
                 size: y_values,
                 color: x_otu_id,
@@ -72,7 +73,7 @@ output.innerHTML = `<center>ID: ${demo_data.id}
     var data = [og_trace];
     Plotly.newPlot("plot", data);
 
-
+}
 // Call updatePlotly() when a change takes place to the DOM
 d3.selectAll("#selDataset").on("change", updatePlotly);
 
@@ -108,8 +109,9 @@ function updatePlotly() {
     for (var i = 0; i < samples.length; i++){
         if (samples[i].id == value){
 
-            x_otu_id = samples.otu_ids
-            y_values = samples.sample_values
+            x_otu_id = samples[i].otu_ids
+            y_values = samples[i].sample_values
+            console.log(y_values)
 
             var tracechange = {
                 type: "scatter",
@@ -124,13 +126,16 @@ function updatePlotly() {
                         colorscale:"turbid"
                         }
                     };
-            }
-        }
-                
-                var data = [tracechange]
 
-    Plotly.restyle("plot", "x", data);
-    Plotly.restyle("plot", "y", data);
+        }}
+                
+            var data = [tracechange]
+    Plotly.newPlot("plot", data)
+    // Plotly.restyle("plot", "x", [x_otu_id]) 
+    // Plotly.restyle("plot", "y", [y_values]) 
+
  
 }}
+
+init();
 });
