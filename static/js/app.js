@@ -1,4 +1,4 @@
-d3.json("../samples.json").then(function(Data){
+d3.json("./samples.json").then(function(Data){
     var data = Data
 
 //testing variables created
