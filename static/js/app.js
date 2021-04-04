@@ -51,44 +51,6 @@ output.innerHTML = `<center>ID: ${demo_data.id}
                     Wfreq: ${demo_data.wfreq}</center>`
 
 
-//set gauge
-var data = [
-	{
-		domain: { x: [0, 1], y: [0, 1] },
-		value: demo_data.wfreq,
-		title: { text: "Belly Button Wash Frequency" },
-		type: "indicator",
-		mode: "gauge+number",
-        gauge: {
-            axis: {range: [0, 9]},
-            bar: { color: "brown" },
-            bgcolor: "white",
-            borderwidth: 1,
-
-        steps: [
-            { range: [0, 1], color: "olive"},
-            { range: [1, 2], color: "458B00" },
-            { range: [2, 3], color: "66CD00" },
-            { range: [3, 4], color: "76EE00" },
-            { range: [4, 5], color: "7FFF00" },
-            { range: [5, 6], color: "00FF7F" },
-            { range: [6, 7], color: "aquamarine" },
-            { range: [7, 8], color: "aqua" },
-            { range: [8, 9], color: "royalblue"}],
-        
-        }
-        
-        }
-];
-
-var layout = { 
-    width: 600, 
-    height: 500, 
-    margin: { t: 0, b: 0 }
-    };
-Plotly.newPlot('gauge', data, layout);
-
-
 //output of scatter graph
 function init(){
     if (samples[0].id == 940){
@@ -154,11 +116,49 @@ function init(){
                 }
 
     }
+
+    //set gauge
+var gauge_data = [
+	{
+		domain: { x: [0, 1], y: [0, 1] },
+		value: demo_data.wfreq,
+		title: { text: "Belly Button Wash Frequency" },
+		type: "indicator",
+		mode: "gauge+number",
+        gauge: {
+            axis: {range: [0, 9]},
+            bar: { color: "brown" },
+            bgcolor: "white",
+            borderwidth: 1,
+
+        steps: [
+            { range: [0, 1], color: "olive"},
+            { range: [1, 2], color: "458B00" },
+            { range: [2, 3], color: "66CD00" },
+            { range: [3, 4], color: "76EE00" },
+            { range: [4, 5], color: "7FFF00" },
+            { range: [5, 6], color: "00FF7F" },
+            { range: [6, 7], color: "aquamarine" },
+            { range: [7, 8], color: "aqua" },
+            { range: [8, 9], color: "royalblue"}],
+        
+        }
+        
+        }
+];
+
+var layout = { 
+    width: 600, 
+    height: 500, 
+    margin: { t: 0, b: 0 }
+    };
     }
+    
     var data = [og_trace];
     var bardata = [bar_og_trace]
     Plotly.newPlot("plot", data);
-    Plotly.newPlot("bar", bardata)
+    Plotly.newPlot("bar", bardata);
+    Plotly.newPlot('gauge', gauge_data, layout);
 
 }
 // Call updatePlotly() when a change takes place to the DOM
