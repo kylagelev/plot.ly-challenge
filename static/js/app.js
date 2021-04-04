@@ -23,51 +23,68 @@ d3.json("samples.json").then(function(ImportedData){
     hovertext_list.push(hovertext)
   }
 
-  console.log(values_list)
-  console.log(labels_list)
-  console.log(hovertext_list)
+  // console.log(values_list)
+  // console.log(labels_list)
+  // console.log(hovertext_list)
 
   var mergevalues = values_list.flat(1);
-  console.log(mergevalues);
+  // console.log(mergevalues);
 
   var mergelabels = labels_list.flat(1);
-  console.log(mergelabels)
+  // console.log(mergelabels)
 
-  var countUnique = mergevalues => {
-    var counts = {};
-    for (var i = 0; i < mergevalues.length; i++) {
-       counts[mergevalues[i]] = 1 + (counts[mergevalues[i]] || 0);
-    };
-    return counts;
- };
- console.log(countUnique(values));
+  var mergehovertext = hovertext_list.flat(1);
+  // console.log(mergehovertext)
 
 
 
+information = {
+  values: mergevalues,
+  labels: mergelabels,
+  hovertexts: mergehovertext
+}
 
+
+console.log(information.values)
   // Sort the data array 
-  mergevalues.sort(function(a, b) {
-    return parseFloat(b.mergevalues) - parseFloat(a.mergevalues);
-  });
+ information.values.sort(function(a, b) {
+   return parseFloat(b.values) - parseFloat(a.values);
+ });
 
 
   // // // Slice the first 10 objects for plotting
-    slicedvalues = mergevalues.slice(0, 10);
+    slicedvalues = information.values.slice(0, 10);
 
-    console.log(slicedvalues)
+    console.log(slicedvalues[1])
     
 
 //   // Reverse the array due to Plotly's defaults
-    // slicedvalues = slicedvalues.reverse();
+    slicedvalues = slicedvalues.reverse();
 
-  // var trace1 = {
-  //   x: slicedvalues,
-  //   y: ,
-  //   text: hovertext,
-  //   name: "Greek",
-  //   type: "bar",
-  //   orientation: "h"
-  // };
+    sliced_id = []
+    sliced_hovertexts = []
+
+    for (var i = 0; i < information.values.length; i++){
+      for (var j = 0; j < slicedvalues.length; j++){
+        if (slicedvalues[j]==information.values[i]){
+          var sliced_otu_id = information.labels[i]
+          sliced_id.push(sliced_otu_id)
+          var sliced_hover = information.hovertexts[i]
+          sliced_hovertexts.push(sliced_hover)
+        }
+      }
+    }
+console.log(sliced_id)
+console.log(sliced_hovertexts)
+
+//   var trace1 = {
+//     x: information.values,
+//     y: information.labels,
+//     text: information.hovertexts,
+//     name: "Greek",
+//     type: "bar",
+//     orientation: "h"
+//   };
 
 //   // data
 //   var chartData = [trace1];
