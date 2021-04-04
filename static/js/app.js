@@ -62,9 +62,10 @@ console.log(information.values)
     sliced_id = []
     sliced_hovertexts = []
 
-//checking, so here I have a total of 9 values...
+//checking, so here I have a total of 10 values...
     console.log(slicedvalues)
 
+//now I am sorting through to pull out otu values that match
     for (var i = 0; i < information.values.length; i++){
       for (var j = 0; j < slicedvalues.length; j++){
         if (slicedvalues[j]==information.values[i]){
@@ -76,8 +77,8 @@ console.log(information.values)
       }
     }
 
+//converting the otu_ids to strings... otherwise the graph read the values as numbers on the y-axis
 otus = []
-
 for (var i = 0; i < sliced_id.length; i++){
   var otu = sliced_id[i].toString()
   otu_id = `OTU ${otu}`
@@ -85,19 +86,21 @@ for (var i = 0; i < sliced_id.length; i++){
 }
 
 
-
+//now slicing to shorten, and then also reversing values
 otus_ids = otus.slice(0, 11);
 hover = sliced_hovertexts.slice(0, 10);
 otu_text = otus_ids.reverse();
 text = hover.reverse();
 
+//creating unique list because I was running into having duplicates
 var unique_otu = Array.from(new Set(otu_text));
 
+//checking values + value count + order
 console.log(slicedvalues)
 console.log(unique_otu)
 console.log(text)
 
-
+//building trace
   var trace1 = {
     x: slicedvalues,
     y: unique_otu,
@@ -124,6 +127,8 @@ console.log(text)
   // Render the plot to the div tag with id "plot"
   Plotly.newPlot("bar", chartData, layout);
 });
+
+
 
 
 
