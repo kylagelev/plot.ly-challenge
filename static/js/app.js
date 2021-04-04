@@ -77,8 +77,6 @@ console.log(information.values)
 console.log(sliced_id)
 console.log(sliced_hovertexts)
 
-sliced_id[1].toString()
-
 otus = []
 
 for (var i = 0; i < sliced_id.length; i++){
@@ -89,11 +87,17 @@ for (var i = 0; i < sliced_id.length; i++){
 
 console.log(otus)
 
+otus_ids = otus.slice(0, 10);
+hover = sliced_hovertexts.slice(0,10);
+otu = otus_ids.reverse();
+text = hover.reverse();
+
+
   var trace1 = {
     x: slicedvalues,
-    y: otus,
-    text: sliced_hovertexts,
-    name: "Greek",
+    y: otus_ids,
+    text: hover,
+    name: "OTUs",
     type: "bar",
     orientation: "h"
   };
@@ -103,7 +107,7 @@ console.log(otus)
 
   // Apply the group bar mode to the layout
   var layout = {
-    title: "Greek gods search results",
+    title: "Top 10 OTU's",
     margin: {
       l: 100,
       r: 100,
@@ -115,8 +119,6 @@ console.log(otus)
   // Render the plot to the div tag with id "plot"
   Plotly.newPlot("bar", chartData, layout);
 });
-  //need to figure out how to pull in data...
-  //then want to make traces
-  //then connect them to drop down
+
 
 
