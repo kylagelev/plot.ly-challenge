@@ -9,4 +9,8 @@ The bar chart displays the top 10 OTUs for the individual. The scatter plot disp
 
 Looking at all these visualizations can provide researchers and people interested in this stuff further clarifications to the data.
 
+Take a quick peak at the site, otherwise, deploy and interact!
+
+![Image of Belly Button Visualizations](https://github.com/kylagelev/plot.ly-challenge/image/plotly_image.png)
+
 
