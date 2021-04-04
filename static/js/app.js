@@ -77,31 +77,43 @@ console.log(information.values)
 console.log(sliced_id)
 console.log(sliced_hovertexts)
 
-//   var trace1 = {
-//     x: information.values,
-//     y: information.labels,
-//     text: information.hovertexts,
-//     name: "Greek",
-//     type: "bar",
-//     orientation: "h"
-//   };
+sliced_id[1].toString()
 
-//   // data
-//   var chartData = [trace1];
+otus = []
 
-//   // Apply the group bar mode to the layout
-//   var layout = {
-//     title: "Greek gods search results",
-//     margin: {
-//       l: 100,
-//       r: 100,
-//       t: 100,
-//       b: 100
-//     }
-//   };
+for (var i = 0; i < sliced_id.length; i++){
+  var otu = sliced_id[i].toString()
+  otu_id = `OTU ${otu}`
+  otus.push(otu_id)
+}
 
-//   // Render the plot to the div tag with id "plot"
-//   Plotly.newPlot("bar", chartData, layout);
+console.log(otus)
+
+  var trace1 = {
+    x: slicedvalues,
+    y: otus,
+    text: sliced_hovertexts,
+    name: "Greek",
+    type: "bar",
+    orientation: "h"
+  };
+
+  // data
+  var chartData = [trace1];
+
+  // Apply the group bar mode to the layout
+  var layout = {
+    title: "Greek gods search results",
+    margin: {
+      l: 100,
+      r: 100,
+      t: 100,
+      b: 100
+    }
+  };
+
+  // Render the plot to the div tag with id "plot"
+  Plotly.newPlot("bar", chartData, layout);
 });
   //need to figure out how to pull in data...
   //then want to make traces
